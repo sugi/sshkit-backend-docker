@@ -26,6 +26,6 @@ RuboCop::RakeTask.new(:lint) do |task|
 end
 
 before :build do
-  spec = Bundler.load_gemspec(File.join(File.dirname(__FILE__), 'sshkit-docker-backend.gemspec'))
+  spec = Bundler.load_gemspec(File.join(File.dirname(__FILE__), 'sshkit-backend-docker.gemspec'))
   FileUtils.chmod(0644, spec.files)
 end
