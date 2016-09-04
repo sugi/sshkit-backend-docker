@@ -1,8 +1,5 @@
 # SSHKit::Backend::Docker
 
-{<img src="https://badge.fury.io/rb/sshkit-backend-docker.svg" alt="Gem Version" />}[https://badge.fury.io/rb/sshkit-backend-docker]
-[![Build Status](https://travis-ci.org/sugi/sshkit-backend-docker.svg?branch=master)](https://travis-ci.org/sugi/sshkit-backend-docker)
-
 Docker connector backend for SSHKit.
 You can execute commands inside docker container without ssh connection.
 
