@@ -1,6 +1,8 @@
 require 'sshkit'
 module SSHKit
   class Host
+    attr_writer :docker_options
+
     def docker?
       !docker_options.empty?
     end
