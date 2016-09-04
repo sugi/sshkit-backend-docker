@@ -17,6 +17,7 @@ Dir[File.expand_path('test/support/*.rb')].each { |file| require file }
 class UnitTest < Minitest::Test
   def setup
     SSHKit.reset_configuration!
+    SSHKit.config.backend = SSHKit::Backend::Docker
   end
 
   SSHKit::Backend::ConnectionPool.class_eval do
