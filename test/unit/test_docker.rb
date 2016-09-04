@@ -11,6 +11,11 @@ module SSHKit
         @docker ||= backend.new Host.new(docker: {container: 'container-id'})
       end
 
+      def test_docker_host_flag
+        h = Host.new(docker: {container: 'container-id'})
+        assert h.docker?
+      end
+
       def test_docker_config_options
         backend.configure do |docker|
           docker.pty = true
