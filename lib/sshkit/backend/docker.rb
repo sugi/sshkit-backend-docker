@@ -1,8 +1,9 @@
-require 'sshkit'
 require 'open3'
 require 'fileutils'
 require 'json'
+require 'sshkit'
 require 'sshkit/backend/docker/version'
+require 'sshkit/docker_host_ext'
 
 module SSHKit
   module Backend
