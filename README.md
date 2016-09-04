@@ -5,6 +5,8 @@
 Docker connector backend for SSHKit.
 You can execute commands inside docker container without ssh connection.
 
+**If you use capistrano, please refer [capistrano-deploy_into_docker](https://github.com/sugi/capistrano-deploy_into_docker).**
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,8 +24,6 @@ Or install it yourself as:
     $ gem install sshkit-backend-docker
 
 ## Usage
-
-**If you use capistrano, please refer [capistrano-deploy_into_docker](https://github.com/sugi/capistrano-deploy_into_docker).**
 
 Currently, you need to set `SSHKit.config.backend` to run command with docker backend.
 
