@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Docker connector backend for SSHKit}
   spec.description   = %q{sshkit-backend-docker provides Docker connection and some utilities. You can execute commands inside docker container without ssh connection.}
-  spec.homepage      = "http://github.com/sugi/sshki-backend-docker"
+  spec.homepage      = "http://github.com/sugi/sshkit-backend-docker"
   spec.license       = "MIT"
 
   spec.files         = Dir['lib/**/*.rb'] + %w(LICENSE README.md)
