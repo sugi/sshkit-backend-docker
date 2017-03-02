@@ -16,16 +16,8 @@ module SSHKit
       CONTAINER_WAIT_IO = {}
       attr_accessor :docker_open_stdin
 
-      def self.host_container_map_key(host)
-        key = host.docker_options.dup || {}
-        key.delete :container
-        key.delete :commit
-        key
-      end
-
-      def self.find_cntainer_by_host(host)
-        host.docker_options[:container] ||
-          CONTAINER_MAP[host_container_map_key(host)]
+      def self.find_container_by_host(host)
+        host.docker_options[:container] || CONTAINER_MAP[host.docker_host_id]
       end
 
       def initialize(host, &block)
@@ -40,6 +32,9 @@ module SSHKit
         else
           @container = docker_run_image
           host.hostname.chop! << ", container: #{@container})"
+        end
+        if host.respond_to? :roles_array
+          host.hostname.chop! << ", roles: #{host.roles_array.inspect})"
         end
         @container
       end
@@ -108,15 +103,18 @@ module SSHKit
 
         if host.is_a?(String)
           image_name = host
+          host_id = host.__id__
           host = _deep_dup(self.host)
           host.docker_options[:image] = image_name
+          host.docker_host_id = host_id
         elsif host.is_a?(Hash)
           d_opts = host
           host = _deep_dup(self.host)
           host.docker_options = d_opts.symbolize_keys
+          host.docker_host_id = d_opts.__id__
         end
 
-        map_key = self.class.host_container_map_key(host)
+        map_key = host.docker_host_id
         CONTAINER_MAP[map_key] and
           return CONTAINER_MAP[map_key]
 
@@ -166,7 +164,7 @@ module SSHKit
 
         host.docker_options[:commit] or return
 
-        container = self.class.find_cntainer_by_host(host) or
+        container = self.class.find_container_by_host(host) or
           raise "Cannot find container for host #{host.inspect}"
 
         cmd = %w(docker commit)
