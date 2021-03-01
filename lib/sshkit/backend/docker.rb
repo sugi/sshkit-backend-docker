@@ -177,7 +177,7 @@ module SSHKit
           end
 
           if image_config["User"].to_s.length > 1
-            cmd << '-c' << "USER #{image_config["User"]}"
+            cmd << "-c \"USER #{image_config["User"]}\""
           end
 
           c = image_config["Cmd"]
@@ -185,7 +185,7 @@ module SSHKit
             c.shift; c.shift;
           end
           unless c.empty?
-            cmd << '-c' << "CMD #{c.join(' ')}"
+            cmd << "-c \"CMD #{c.join(' ')}\""
           end
         end
 
@@ -205,12 +205,8 @@ module SSHKit
         image_name == true or
           cmd << image_name
 
-        image_hash = nil
         pid = nil
-        IO.popen cmd, 'rb' do |f|
-          pid = f.pid
-          image_hash = f.gets
-        end
+        image_hash = `#{cmd.join(' ')}`.tr('sha256:', '')
         image_hash.nil? and
           output.error "Docker: Failed to get image hash. Commit may be failed!"
         image_hash.chomp!
